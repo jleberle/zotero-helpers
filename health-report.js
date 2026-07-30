@@ -6,7 +6,7 @@
  * with obviously incomplete metadata for their type.
  *
  * Run via: Tools > Developer > Run JavaScript. Prints a summary and writes
- * a full list to ~/zotero-organization-backups/health-report-<timestamp>.txt
+ * a full list to backups/health-report-<timestamp>.txt in this repo.
  */
 
 var libraryID = Zotero.Libraries.userLibraryID;
@@ -55,7 +55,8 @@ lines.push('');
 lines.push('Items with thin metadata (' + thinMetadata.length + '):');
 lines = lines.concat(thinMetadata.map(function (s) { return '  ' + s; }));
 
-var BACKUP_DIR = '/Users/jaredeberle/zotero-organization-backups';
+var BACKUP_DIR = '/Users/jaredeberle/git/zotero-helpers/backups';
+await IOUtils.makeDirectory(BACKUP_DIR, { ignoreExisting: true });
 var ts = new Date().toISOString().replace(/[:.]/g, '-');
 var outPath = PathUtils.join(BACKUP_DIR, 'health-report-' + ts + '.txt');
 await IOUtils.writeUTF8(outPath, lines.join('\n'));

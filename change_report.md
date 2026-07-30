@@ -1,6 +1,6 @@
 # Zotero Reorganization — Computed Change Plan
 
-**Status: applied and complete** (2026-07-07). This document is kept as the historical record of what changed and why. The migration scripts, their input data, and their run logs have been moved to [archive/](archive/) since the migration is done and they won't run again. For the ongoing workflow (Inbox processing, tags, Projects, saved searches, health checks), see [WORKFLOW.md](WORKFLOW.md).
+**Status: applied and complete** (2026-07-07). This document is kept as the historical record of what changed and why. The one-off migration scripts, their input data, their run logs, and the pre-migration database snapshot were deleted after the migration was verified — they existed only as a safety net while the library was rebuilt and won't run again. For the ongoing workflow (Inbox processing, tags, Projects, saved searches, health checks), see [README.md](README.md).
 
 Generated from read-only analysis copy. Items affected: 160
 
@@ -82,10 +82,10 @@ Inbox, Unread, Recently Added, Annotated, Items Missing PDFs, Items Missing Tags
 
 ## How to apply
 
-**(Historical — this already happened.)** The migration was applied on 2026-07-07 using `archive/reorg-dryrun.js` then `archive/reorg-apply.js` (input: `archive/item_changes.json`, `archive/tag_map.json`), confirmed against `archive/dryrun-log-*.txt` and `archive/apply-log-*.txt`. Of the flagged items above, the Bourgois "Ethnic Minorities" item (`V9LRFJ7W`) was confirmed to have complete metadata and was tagged; the stale import-error note and the true duplicate (`XEA3EG3M`) were resolved via `archive/cleanup-missing-from-zotero.js`, and the `missing-from-zotero` collection is gone. The frog-physiology contamination and remaining duplicate-title merges are still open — see above.
+**(Historical — this already happened.)** The migration was applied on 2026-07-07 with a dry-run script followed by an apply script, confirmed against their logs. Of the flagged items above, the Bourgois "Ethnic Minorities" item (`V9LRFJ7W`) was confirmed to have complete metadata and was tagged; the stale import-error note and the true duplicate (`XEA3EG3M`) were resolved by a cleanup script, and the `missing-from-zotero` collection is gone. The frog-physiology contamination and remaining duplicate-title merges are still open — see above. The migration scripts, their inputs, and their logs have since been deleted (see the status note at the top).
 
-Going forward, use [WORKFLOW.md](WORKFLOW.md) for Inbox processing, tagging, Projects, and the recurring `health-report.js` check — not this section.
+Going forward, use [README.md](README.md) for Inbox processing, tagging, Projects, and the recurring `health-report.js` check — not this section.
 
 ## Rollback
 
-`zotero_full_backup_<timestamp>.sqlite` in this folder is a complete snapshot of `~/Zotero/zotero.sqlite` taken before any change. To roll back: quit Zotero completely, replace `~/Zotero/zotero.sqlite` with this backup file, restart Zotero. This restores the exact original state, including anything not touched by this plan.
+A full pre-migration snapshot of `~/Zotero/zotero.sqlite` was kept while the library was rebuilt. The migration was verified clean, so the snapshot was deleted — rollback to the pre-migration state is no longer available (nor needed).

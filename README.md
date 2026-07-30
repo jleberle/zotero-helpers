@@ -47,7 +47,7 @@ Right-click **My Library** → **New Saved Search** in Zotero. These four work n
 
 **Duplicate Titles** doesn't need a saved search — Zotero's built-in **Duplicate Items** view (permanent entry in the left pane) already does fuzzy title/DOI/ISBN matching with a one-click merge, which is better than anything a custom search could do.
 
-**Items Missing PDFs / Missing Tags / Missing Metadata** can't be expressed as native saved searches — Zotero's condition builder has no "zero attachments" or "zero tags" condition. Run [health-report.js](health-report.js) periodically instead (Tools > Developer > Run JavaScript); it's read-only and writes a timestamped list to this folder.
+**Items Missing PDFs / Missing Tags / Missing Metadata** can't be expressed as native saved searches — Zotero's condition builder has no "zero attachments" or "zero tags" condition. Run [health-report.js](health-report.js) periodically instead (Tools > Developer > Run JavaScript); it's read-only against the library and writes a timestamped list to `backups/` in this repo (not committed).
 
 ## Annotated tag (automatic)
 

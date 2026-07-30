@@ -18,6 +18,10 @@
 
 var PROJECT_NAME = 'CHANGE ME'; // <-- set the project name before running
 
+if (PROJECT_NAME === 'CHANGE ME') {
+  return 'ERROR: edit PROJECT_NAME at the top of this script first.';
+}
+
 var libraryID = Zotero.Libraries.userLibraryID;
 var all = Zotero.Collections.getByLibrary(libraryID, true);
 var projectsParent = all.find(function (c) { return c.name === 'Projects' && !c.parentID; });
@@ -30,15 +34,17 @@ if (!project) {
 }
 
 // Permanent = any top-level collection that isn't Inbox/Projects itself,
-// or anything under Research Topics / Archives.
-var permanentRoots = all.filter(function (c) {
+// plus all of its descendants at any depth (the Archives tree is several
+// levels deep, so a one-level walk would falsely flag items filed there).
+var permanentIDs = new Set();
+var queue = all.filter(function (c) {
   return !c.parentID && c.name !== 'Inbox' && c.name !== 'Projects';
 });
-var permanentIDs = new Set();
-permanentRoots.forEach(function (r) {
-  permanentIDs.add(r.id);
-  all.filter(function (c) { return c.parentID === r.id; }).forEach(function (c) { permanentIDs.add(c.id); });
-});
+while (queue.length) {
+  var col = queue.pop();
+  permanentIDs.add(col.id);
+  queue = queue.concat(all.filter(function (c) { return c.parentID === col.id; }));
+}
 
 var items = project.getChildItems();
 var orphans = [];

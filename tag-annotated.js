@@ -38,7 +38,9 @@ lines.push('Already tagged "Annotated": ' + alreadyTagged);
 lines.push('Newly tagged: ' + newlyTagged.length);
 lines = lines.concat(newlyTagged.map(function (s) { return '  ' + s; }));
 
-var outPath = '/Users/jaredeberle/zotero-organization-backups/tag-annotated-result.txt';
+var BACKUP_DIR = '/Users/jaredeberle/git/zotero-helpers/backups';
+await IOUtils.makeDirectory(BACKUP_DIR, { ignoreExisting: true });
+var outPath = PathUtils.join(BACKUP_DIR, 'tag-annotated-result.txt');
 await IOUtils.writeUTF8(outPath, lines.join('\n'));
 
-lines.join('\n');
+return lines.join('\n');

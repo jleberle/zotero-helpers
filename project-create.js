@@ -10,6 +10,10 @@
 
 var PROJECT_NAME = 'CHANGE ME'; // <-- set the project name before running
 
+if (PROJECT_NAME === 'CHANGE ME') {
+  return 'ERROR: edit PROJECT_NAME at the top of this script first.';
+}
+
 var libraryID = Zotero.Libraries.userLibraryID;
 var projectsParent = Zotero.Collections.getByLibrary(libraryID, true)
   .find(function (c) { return c.name === 'Projects' && !c.parentID; });
