@@ -1,5 +1,7 @@
 # Ongoing Zotero workflow
 
+[![License: MIT-0](https://img.shields.io/badge/License-MIT--0-blue.svg)](LICENSE)
+
 ## Adding new items
 
 Everything new lands in **Inbox** first (browser connector, RIS/BibTeX import, etc. — point them at Inbox, not a Research Topic collection directly). Process each item before it leaves Inbox:
